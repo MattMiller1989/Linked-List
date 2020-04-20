@@ -38,8 +38,9 @@ class Linked_List
     end
 
     def pop
-        second_to_last=at(size-1)
-        second_to_last.next_link=nil
+        second_to_last=at(size-2)
+        
+        second_to_last.assign_next(nil)
     end
 
     def head
@@ -52,7 +53,7 @@ class Linked_List
     end
 
     def size
-        num_nodes=1
+        num_nodes=0
         curr_node=@head
         while curr_node!= nil
             curr_node=curr_node.next_node
@@ -89,7 +90,7 @@ class Linked_List
 
             
         end
-        return false
+        
     end
 
     def to_s
@@ -101,6 +102,29 @@ class Linked_List
         end
         
         return ret
+    end
+
+    def insert_at(value,index)
+        if index >= size
+            index=size-1
+        end
+        
+        prev_node=at(index-1)
+        curr_node=at(index)
+        newest_node=Node.new(value)
+        newest_node.assign_next(curr_node)
+        prev_node.assign_next(newest_node)
+
+
+    end
+    def remove_at(index)
+        if index >=size
+            puts "Index is too big yo... the size is only #{size}"
+        end
+
+        prev_node=at(index-1)
+        following_node=at(index+1)
+        prev_node.assign_next(following_node)
     end
 end
 
@@ -126,9 +150,6 @@ class Node
 
 end
 
-my_list=Linked_List.new("FUCK")
-my_list.append("Shit")
-my_list.append("BITCH")
 
 
-puts my_list
+
